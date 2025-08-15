@@ -28,6 +28,11 @@ find_by_year() {
     done
 }
 
+get_id() {
+    LINE="$1"
+    echo "$LINE" | awk -F'\t' '{print $2}'
+}
+
 get_year() {
     LINE="$1"
     echo "$LINE" | awk -F'\t' '{print $9}'
@@ -75,6 +80,7 @@ new_file() {
 }
 
 process_file() {
+    # unzips (gunzip) srt file and places it in correct year/title subdirectory
     LINE="$1"
     TITLE="$(get_title "$LINE")"
     CLEANED="$(get_title "$LINE" | sed 's/ /_/g' | sed 's/[^a-zA-Z0-9_-]//g' | tr -s "_")"
